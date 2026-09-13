@@ -107,6 +107,26 @@ The preprocessing notebook contains exploratory and rejected approaches as part 
 
 The PDF methodology/worklog under `docs/notes/` is intended as an evolving personal research record rather than the final conference manuscript.
 
+| Segmentation Experiment | Status |
+|---|---|
+| Data Preprocessing & QC | ✅ Complete |
+| U-Net (ResNet34) | ✅ Complete |
+| U-Net++ | ⏳ Pending |
+| DeepLabV3+ | ⏳ Pending |
+| Model Comparison | ⏳ Pending |
+
+### U-Net — Final Test Performance
+
+| Metric | Score |
+|---|---:|
+| Dice | 0.991319 |
+| IoU / Jaccard | 0.982788 |
+| Precision | 0.991544 |
+| Recall | 0.991094 |
+| Specificity | 0.992660 |
+| Pixel Accuracy | 0.991933 |
+
+
 ## Models
 
 Segmentation models planned for controlled comparison:
