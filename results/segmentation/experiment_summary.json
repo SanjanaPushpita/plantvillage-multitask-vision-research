@@ -1,0 +1,29 @@
+{
+    "model": "UNet",
+    "encoder": "resnet34",
+    "encoder_pretraining": "ImageNet",
+    "epochs_completed": 30,
+    "best_epoch": 26,
+    "best_validation_dice": 0.9911337333271304,
+    "best_validation_iou": 0.9824719366179891,
+    "final_train_dice": 0.991706784579744,
+    "final_validation_dice": 0.9910363237182778,
+    "training_samples": 42371,
+    "validation_samples": 5300,
+    "test_samples": 5298,
+    "test_metrics": {
+        "test_loss": 0.0175725767267998,
+        "dice": 0.9913193700681049,
+        "iou": 0.9827881498379102,
+        "precision": 0.9915444042455841,
+        "recall": 0.9910944380119033,
+        "specificity": 0.9926603931296268,
+        "pixel_accuracy": 0.9919325589863657,
+        "tp_pixels": 159941085,
+        "fp_pixels": 1363930,
+        "fn_pixels": 1437164,
+        "tn_pixels": 184467549,
+        "threshold": 0.5
+    },
+    "checkpoint": "/content/drive/MyDrive/PlantVillage_Segmentation/experiments/UNet/checkpoints/best_unet.pth"
+}
