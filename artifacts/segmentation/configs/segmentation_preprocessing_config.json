@@ -1,0 +1,23 @@
+{
+    "dataset": "PlantVillage",
+    "task": "binary leaf segmentation",
+    "original_color_images": 54305,
+    "original_segmented_images": 54306,
+    "paired_samples": 54305,
+    "source_qc_exclusions": 1,
+    "final_segmentation_samples": 52969,
+    "classes": 38,
+    "target_source": "PlantVillage segmented RGB images",
+    "target_method": "non-black foreground extraction from QC-approved segmented images",
+    "black_threshold": 15,
+    "binary_mask_saved_to_disk": false,
+    "mask_generation": "dynamic in memory",
+    "mask_resize_interpolation": "nearest_neighbor",
+    "input_image_size": [
+        256,
+        256
+    ],
+    "original_split": "stratified 80/10/10",
+    "random_seed": 42,
+    "experimental_otsu_method_used": false
+}

@@ -1,0 +1,120 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# =========================
+# Environments
+# =========================
+.env
+.env.*
+venv/
+.venv/
+env/
+ENV/
+
+# =========================
+# Jupyter / Colab
+# =========================
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# Optional: keep large output-heavy archival notebooks outside Git
+*_with_outputs.ipynb
+*_archive.ipynb
+
+# =========================
+# Credentials / secrets
+# =========================
+kaggle.json
+**/kaggle.json
+*.pem
+*.key
+credentials.*
+secrets.*
+service-account*.json
+
+# =========================
+# Raw datasets / images
+# =========================
+data/
+dataset/
+datasets/
+PlantVillage/
+plantvillage-dataset/
+plantvillage dataset/
+**/color/
+**/grayscale/
+**/segmented/
+
+# Image archives
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+
+# =========================
+# Model weights / checkpoints
+# =========================
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.h5
+*.keras
+checkpoints/
+weights/
+
+# =========================
+# Experiment trackers / logs
+# =========================
+wandb/
+runs/
+lightning_logs/
+mlruns/
+logs/
+tensorboard/
+
+# =========================
+# Generated results
+# =========================
+results/**/predictions/
+results/**/checkpoints/
+results/**/*.npy
+results/**/*.npz
+
+# Keep small result summaries and placeholder directories
+!results/**/.gitkeep
+!results/**/*.csv
+!results/**/*.json
+!results/**/*.md
+
+# =========================
+# OS / editor
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
