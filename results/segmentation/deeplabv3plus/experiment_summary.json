@@ -1,0 +1,29 @@
+{
+    "model": "DeepLabV3Plus",
+    "encoder": "resnet34",
+    "encoder_pretraining": "ImageNet",
+    "epochs_completed": 13,
+    "best_epoch": 10,
+    "best_validation_dice": 0.9900761556499552,
+    "best_validation_iou": 0.9804049398465018,
+    "final_train_dice": 0.9900164774317216,
+    "final_validation_dice": 0.9888761788999814,
+    "training_samples": 42371,
+    "validation_samples": 5300,
+    "test_samples": 5298,
+    "test_metrics": {
+        "test_loss": 0.020148273606293492,
+        "dice": 0.9901057457579472,
+        "iou": 0.9804053658083663,
+        "precision": 0.9903051377475891,
+        "recall": 0.9899064340449003,
+        "specificity": 0.9915842568308892,
+        "pixel_accuracy": 0.9908044281524278,
+        "tp_pixels": 159749367,
+        "fp_pixels": 1563910,
+        "fn_pixels": 1628882,
+        "tn_pixels": 184267569,
+        "threshold": 0.5
+    },
+    "checkpoint": "/content/drive/MyDrive/PlantVillage_Segmentation/experiments/DeepLabV3Plus/checkpoints/best_deeplabv3plus.pth"
+}

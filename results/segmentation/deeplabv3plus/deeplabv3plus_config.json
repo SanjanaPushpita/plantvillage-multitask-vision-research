@@ -1,0 +1,17 @@
+{
+    "experiment_name": "DeepLabV3Plus",
+    "architecture": "DeepLabV3Plus",
+    "encoder": "resnet34",
+    "encoder_weights": "imagenet",
+    "input_channels": 3,
+    "output_channels": 1,
+    "image_size": 256,
+    "batch_size": 14,
+    "random_seed": 42,
+    "train_samples": 42371,
+    "validation_samples": 5300,
+    "test_samples": 5298,
+    "black_threshold": 15,
+    "device": "cuda",
+    "gpu": "Tesla T4"
+}
