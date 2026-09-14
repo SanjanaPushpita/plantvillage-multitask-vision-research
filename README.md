@@ -44,8 +44,8 @@ The segmentation preprocessing pipeline has been finalized with the following ve
 
 - `01_PlantVillage_Segmentation_Data_Preprocessing_and_QC.ipynb`
 - `02_PlantVillage_UNet_Segmentation.ipynb`
-- `03_PlantVillage_UNetPlusPlus_Segmentation.ipynb`
-- `04_PlantVillage_DeepLabV3Plus_Segmentation.ipynb`
+- `03_PlantVillage_DeepLabV3Plus_Segmentation.ipynb`
+- `04_PlantVillage_FPN_Segmentation.ipynb`
 - `05_PlantVillage_Segmentation_Model_Comparison.ipynb`
 
 Each model experiment is designed to be independent while sharing the same final manifest, preprocessing rule, split, and evaluation protocol for fair comparison.
@@ -111,8 +111,8 @@ The PDF methodology/worklog under `docs/notes/` is intended as an evolving perso
 |---|---|
 | Data Preprocessing & QC | ✅ Complete |
 | U-Net (ResNet34) | ✅ Complete |
-| U-Net++ | ⏳ Pending |
-| DeepLabV3+ | ⏳ Pending |
+| DeepLabV3+ (ResNet34) | 🔄 In Progress |
+| FPN (ResNet34) | ⏳ Pending |
 | Model Comparison | ⏳ Pending |
 
 ### U-Net — Final Test Performance
