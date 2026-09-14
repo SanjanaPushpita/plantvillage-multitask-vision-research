@@ -1,0 +1,33 @@
+{
+    "experiment_name": "FPN",
+    "architecture": "FPN",
+    "encoder": "resnet34",
+    "encoder_weights": "imagenet",
+    "input_channels": 3,
+    "output_channels": 1,
+    "image_size": 256,
+    "batch_size": 16,
+    "random_seed": 42,
+    "train_samples": 42371,
+    "validation_samples": 5300,
+    "test_samples": 5298,
+    "black_threshold": 15,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "max_epochs": 30,
+    "early_stopping_patience": 7,
+    "loss": "0.5*BCEWithLogitsLoss + 0.5*DiceLoss",
+    "optimizer": "AdamW",
+    "scheduler": "ReduceLROnPlateau(mode=max,factor=0.5,patience=3)",
+    "prediction_threshold": 0.5,
+    "device": "cuda",
+    "gpu": "Tesla T4",
+    "environment_versions": {
+        "pytorch": "2.11.0+cu128",
+        "albumentations": "2.0.8",
+        "segmentation_models_pytorch": "0.5.0",
+        "opencv": "5.0.0",
+        "numpy": "2.1.3",
+        "pandas": "2.2.3"
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "model": "FPN",
+    "encoder": "resnet34",
+    "encoder_pretraining": "ImageNet",
+    "epochs_completed": 30,
+    "best_epoch": 25,
+    "best_validation_dice": 0.9907762524952372,
+    "best_validation_iou": 0.981766796076154,
+    "final_train_dice": 0.9913838064954072,
+    "final_validation_dice": 0.9907502851572382,
+    "training_samples": 42371,
+    "validation_samples": 5300,
+    "test_samples": 5298,
+    "training_elapsed_seconds": 7070.346355676651,
+    "test_metrics": {
+        "test_loss": 0.019443246929369454,
+        "dice": 0.9908439545071074,
+        "iou": 0.9818540541202017,
+        "precision": 0.9908031122867805,
+        "recall": 0.9908848000947141,
+        "specificity": 0.9920126557244912,
+        "pixel_accuracy": 0.9914884441256208,
+        "tp_pixels": 159907254,
+        "fp_pixels": 1484300,
+        "fn_pixels": 1470995,
+        "tn_pixels": 184347179,
+        "threshold": 0.5
+    },
+    "checkpoint": "/content/drive/MyDrive/PlantVillage_Segmentation/experiments/FPN/checkpoints/best_fpn.pth"
+}

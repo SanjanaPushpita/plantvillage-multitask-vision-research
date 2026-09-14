@@ -114,8 +114,24 @@ The PDF methodology/worklog under `docs/notes/` is intended as an evolving perso
 | Data Preprocessing & QC | ✅ Complete |
 | U-Net (ResNet34) | ✅ Complete |
 | DeepLabV3+ (ResNet34) | ✅ Complete |
-| FPN (ResNet34) | ⏳ Pending |
-| Model Comparison | ⏳ Pending |
+| FPN (ResNet34) | ✅ Complete |
+| Final Model Comparison | ✅ Models Completed |
+
+### Final Segmentation Results
+
+| Metric | U-Net | DeepLabV3+ | FPN |
+|---|---:|---:|---:|
+| Test Dice | **0.991319** | 0.990106 | 0.990844 |
+| Test IoU | **0.982788** | 0.980405 | 0.981854 |
+| Precision | **0.991544** | 0.990305 | 0.990803 |
+| Recall | **0.991094** | 0.989906 | 0.990885 |
+| Specificity | **0.992660** | 0.991584 | 0.992013 |
+| Pixel Accuracy | **0.991933** | 0.990804 | 0.991488 |
+
+U-Net achieved the highest observed performance on the fixed PlantVillage
+segmentation test set, followed closely by FPN and DeepLabV3+.
+All models used the same QC-approved segmentation dataset and ResNet34
+ImageNet-pretrained encoder.
 
 ### U-Net — Final Test Performance
 
