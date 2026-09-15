@@ -1,0 +1,11 @@
+class_id,class_name,YOLOv8s_mAP50-95
+31,Tomato___Leaf_Mold,0.9587139968478592
+8,Corn_(maize)___Common_rust_,0.9610322574300056
+29,Tomato___Early_blight,0.9630874138100054
+3,Apple___healthy,0.9670192222086592
+30,Tomato___Late_blight,0.9678909604548592
+26,Strawberry___Leaf_scorch,0.9690852616368252
+17,Peach___healthy,0.9705694444444444
+32,Tomato___Septoria_leaf_spot,0.9708816039862144
+5,Cherry_(including_sour)___Powdery_mildew,0.9731565266956068
+15,Orange___Haunglongbing_(Citrus_greening),0.9759010046185178

@@ -1,0 +1,44 @@
+{
+    "primary_ranking_metric": "mAP50-95",
+    "best_observed_model": "YOLOv8s",
+    "models": [
+        {
+            "Model": "YOLOv8s",
+            "Precision": 0.9947368069967063,
+            "Recall": 0.9957092200781182,
+            "F1": 0.9952227760054273,
+            "mAP50": 0.9942309905355928,
+            "mAP50-95": 0.9830023351672791,
+            "Test Images": 5296,
+            "Image Size": 320,
+            "Batch Size": 16,
+            "mAP50-95 Rank": 1
+        },
+        {
+            "Model": "YOLOv8n",
+            "Precision": 0.9928320332868978,
+            "Recall": 0.9918458829708994,
+            "F1": 0.9923387131283313,
+            "mAP50": 0.9940137411018536,
+            "mAP50-95": 0.9816247425477701,
+            "Test Images": 5296,
+            "Image Size": 320,
+            "Batch Size": 16,
+            "mAP50-95 Rank": 2
+        },
+        {
+            "Model": "YOLO11n",
+            "Precision": 0.9931281496025782,
+            "Recall": 0.9912070396592736,
+            "F1": 0.9921666646808301,
+            "mAP50": 0.993786918827339,
+            "mAP50-95": 0.9788320752367716,
+            "Test Images": 5296,
+            "Image Size": 320,
+            "Batch Size": 16,
+            "mAP50-95 Rank": 3
+        }
+    ],
+    "interpretation_note": "All three models used the same final PlantVillage detection manifest, fixed split, COCO-to-PlantDoc-to-PlantVillage transfer pipeline, image size, batch size, optimizer family, and evaluation protocol.",
+    "task_scope": "Whole-leaf localization with disease-class prediction; not lesion-level detection."
+}

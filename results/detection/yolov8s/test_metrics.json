@@ -1,0 +1,14 @@
+{
+    "model": "YOLOv8s",
+    "base_weights": "yolov8s.pt",
+    "precision": 0.9947368069967063,
+    "recall": 0.9957092200781182,
+    "f1": 0.9952227760054273,
+    "map50": 0.9942309905355928,
+    "map50_95": 0.9830023351672791,
+    "test_images": 5296,
+    "classes": 38,
+    "image_size": 320,
+    "batch_size": 16,
+    "best_checkpoint": "/content/drive/MyDrive/PlantVillage_Detection/experiments/YOLOv8s/02_plantvillage_finetune/weights/best.pt"
+}

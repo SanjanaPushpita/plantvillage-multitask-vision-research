@@ -1,0 +1,2 @@
+model,base_weights,precision,recall,f1,map50,map50_95,test_images,classes,image_size,batch_size,best_checkpoint
+YOLO11n,yolo11n.pt,0.9931281496025782,0.9912070396592736,0.9921666646808301,0.993786918827339,0.9788320752367716,5296,38,320,16,/content/drive/MyDrive/PlantVillage_Detection/experiments/YOLO11n/02_plantvillage_finetune/weights/best.pt
