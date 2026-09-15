@@ -1,0 +1,29 @@
+{
+    "model": "EfficientNet-B0",
+    "method": "Mask-Guided Counterfactual Consistency Distillation",
+    "abbreviation": "MG-CCD",
+    "final_inference_input": "ordinary RGB image only",
+    "train_samples": 43443,
+    "validation_samples": 5430,
+    "test_samples": 5431,
+    "classes": 38,
+    "image_size": 224,
+    "physical_batch_size": 32,
+    "gradient_accumulation_steps": 2,
+    "effective_optimizer_batch": 64,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "max_epochs": 20,
+    "early_stopping_patience": 5,
+    "loss_weights": {
+        "ce_original": 1.0,
+        "ce_counterfactual": 0.75,
+        "knowledge_distillation": 0.25,
+        "js_consistency": 0.25
+    },
+    "kd_temperature": 3.0,
+    "teacher": "Leaf-Only EfficientNet-B0",
+    "teacher_logits_source": "/content/drive/MyDrive/PlantVillage_Classification/experiments/Leaf_Only_Teacher_EfficientNetB0/results/teacher_logits.npz",
+    "model_selection": "harmonic mean of validation original and counterfactual Macro F1",
+    "seed": 42
+}

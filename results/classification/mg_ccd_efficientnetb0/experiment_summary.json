@@ -1,0 +1,73 @@
+{
+    "model": "EfficientNet-B0",
+    "method": "Mask-Guided Counterfactual Consistency Distillation",
+    "abbreviation": "MG-CCD",
+    "final_inference_input": "ordinary RGB image only",
+    "train_samples": 43443,
+    "validation_samples": 5430,
+    "test_samples": 5431,
+    "classes": 38,
+    "image_size": 224,
+    "physical_batch_size": 32,
+    "gradient_accumulation_steps": 2,
+    "effective_optimizer_batch": 64,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "max_epochs": 20,
+    "early_stopping_patience": 5,
+    "loss_weights": {
+        "ce_original": 1.0,
+        "ce_counterfactual": 0.75,
+        "knowledge_distillation": 0.25,
+        "js_consistency": 0.25
+    },
+    "kd_temperature": 3.0,
+    "teacher": "Leaf-Only EfficientNet-B0",
+    "teacher_logits_source": "/content/drive/MyDrive/PlantVillage_Classification/experiments/Leaf_Only_Teacher_EfficientNetB0/results/teacher_logits.npz",
+    "model_selection": "harmonic mean of validation original and counterfactual Macro F1",
+    "seed": 42,
+    "best_epoch": 19,
+    "best_validation_selection_score": 0.9963057685112935,
+    "test_metrics": {
+        "original": {
+            "accuracy": 0.9977904621616646,
+            "balanced_accuracy": 0.9970155587824792,
+            "macro_precision": 0.9968920838680543,
+            "macro_recall": 0.9970155587824792,
+            "macro_f1": 0.9969068087037356,
+            "weighted_f1": 0.9977898568354514
+        },
+        "leaf_only": {
+            "accuracy": 0.9896888234211011,
+            "balanced_accuracy": 0.9893818266103231,
+            "macro_precision": 0.9851731151611137,
+            "macro_recall": 0.9893818266103231,
+            "macro_f1": 0.9868969207536038,
+            "weighted_f1": 0.9897697442498649
+        },
+        "background_only": {
+            "accuracy": 0.13478180813846438,
+            "balanced_accuracy": 0.13941561997465693,
+            "macro_precision": 0.2725077627778562,
+            "macro_recall": 0.13941561997465693,
+            "macro_f1": 0.08877569275788373,
+            "weighted_f1": 0.12207869679959701
+        },
+        "counterfactual": {
+            "accuracy": 0.9968698213956914,
+            "balanced_accuracy": 0.9963679097109042,
+            "macro_precision": 0.9955667248099612,
+            "macro_recall": 0.9963679097109042,
+            "macro_f1": 0.995904318881738,
+            "weighted_f1": 0.996880482793332
+        }
+    },
+    "robustness_summary": {
+        "original_macro_f1": 0.9969068087037356,
+        "counterfactual_macro_f1": 0.995904318881738,
+        "macro_f1_drop_original_to_counterfactual": 0.0010024898219975764,
+        "prediction_agreement_original_vs_counterfactual": 0.9972380777020806,
+        "both_original_and_counterfactual_correct_rate": 0.9959491806297183,
+        "background_only_macro_f1": 0.08877569275788373
+    }
+}

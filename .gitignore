@@ -118,3 +118,41 @@ desktop.ini
 *.bak
 *.swp
 *~
+# ============================================================
+# Recommended additions for PlantVillage multi-task research
+# ============================================================
+
+# PyTorch / YOLO model checkpoints
+*.pth
+*.pt
+**/checkpoints/
+**/weights/
+
+# Large derived classification artifacts
+**/classification_unet_masks_packed.npz
+**/teacher_logits.npz
+**/mask_chunks/
+**/source_models/
+
+# Raw datasets / temporary datasets
+data/
+dataset/
+datasets/
+PlantVillage/
+PlantDoc/
+runs/
+
+# Runtime caches
+.cache/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Colab / temporary local files
+/content/
+tmp/
+temp/
+
+# OS
+.DS_Store
+Thumbs.db

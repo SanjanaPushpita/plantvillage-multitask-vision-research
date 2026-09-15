@@ -1,0 +1,47 @@
+{
+    "model": "EfficientNet-B0",
+    "experiment": "Leaf-Only EfficientNet-B0 Teacher",
+    "training_view": "leaf_only",
+    "best_epoch": 16,
+    "best_validation_macro_f1": 0.9980035842936346,
+    "multiview_test_metrics": {
+        "original": {
+            "accuracy": 0.9543362180077334,
+            "balanced_accuracy": 0.9616439796983257,
+            "macro_precision": 0.9516206646617443,
+            "macro_recall": 0.9616439796983257,
+            "macro_f1": 0.9506411045350669,
+            "weighted_f1": 0.9570995582076178
+        },
+        "leaf_only": {
+            "accuracy": 0.9974222058552753,
+            "balanced_accuracy": 0.996246003290684,
+            "macro_precision": 0.9967306024880248,
+            "macro_recall": 0.996246003290684,
+            "macro_f1": 0.9964489359087881,
+            "weighted_f1": 0.9974148315587064
+        },
+        "background_only": {
+            "accuracy": 0.1351500644448536,
+            "balanced_accuracy": 0.09527778459312686,
+            "macro_precision": 0.2430619800976676,
+            "macro_recall": 0.09527778459312686,
+            "macro_f1": 0.0809803968879003,
+            "weighted_f1": 0.12856438697398842
+        },
+        "counterfactual": {
+            "accuracy": 0.9675934450377462,
+            "balanced_accuracy": 0.9685797372918186,
+            "macro_precision": 0.9522784819822444,
+            "macro_recall": 0.9685797372918186,
+            "macro_f1": 0.9573068116473559,
+            "weighted_f1": 0.9680562385274822
+        }
+    },
+    "image_size": 224,
+    "batch_size": 64,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "max_epochs": 20,
+    "early_stopping_patience": 5
+}

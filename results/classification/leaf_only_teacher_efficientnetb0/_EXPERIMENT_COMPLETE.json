@@ -1,0 +1,5 @@
+{
+    "status": "complete",
+    "best_val_macro_f1": 0.9980035842936346,
+    "epochs_recorded": 20
+}

@@ -1,0 +1,8 @@
+{
+    "original_macro_f1": 0.9969068087037356,
+    "counterfactual_macro_f1": 0.995904318881738,
+    "macro_f1_drop_original_to_counterfactual": 0.0010024898219975764,
+    "prediction_agreement_original_vs_counterfactual": 0.9972380777020806,
+    "both_original_and_counterfactual_correct_rate": 0.9959491806297183,
+    "background_only_macro_f1": 0.08877569275788373
+}

@@ -1,185 +1,399 @@
 # PlantVillage Multi-Task Vision Research
 
-Research repository for a PlantVillage-based computer-vision study covering:
+A reproducible computer-vision study on the PlantVillage dataset covering:
 
-- Image classification
-- Leaf segmentation
-- Object detection
+- **Classification**
+- **Segmentation**
+- **Leaf-level disease detection**
 
-> **Repository status:** Work in progress.  
-> The segmentation preprocessing and quality-control stage is complete; model training notebooks will be added incrementally.
+The project is designed as a unified research workflow rather than three unrelated notebooks. Outputs from the segmentation study are reused to support the detection and classification components.
 
-## Current Segmentation Status
+---
 
-The segmentation preprocessing pipeline has been finalized with the following verified state:
+## Project Status
 
-| Item | Final value |
-|---|---:|
-| PlantVillage classes | 38 |
-| Original color images | 54,305 |
-| Original grayscale images | 54,305 |
-| Original segmented images | 54,306 |
-| Valid color-segmented pairs after pairing | 54,305 |
-| Final segmentation samples after QC | 52,969 |
-| Training samples | 42,371 |
-| Validation samples | 5,300 |
-| Test samples | 5,298 |
-| Train/validation/test overlap | 0 |
-| Final target QC problems | 0 |
+| Component | Status |
+|---|---|
+| Dataset auditing / pairing | ✅ Complete |
+| Segmentation preprocessing / QC | ✅ Complete |
+| Segmentation experiments | ✅ Complete |
+| Detection preprocessing / QC | ✅ Complete |
+| Detection experiments | ✅ Complete |
+| Classification preprocessing / QC | ✅ Complete |
+| Classification experiments | ✅ Complete |
+| Cross-model comparisons | ✅ Complete |
+| Final conference-paper writing | 🔄 Next |
 
-### Segmentation preprocessing summary
+---
 
-1. Audited the `color`, `grayscale`, and `segmented` directories.
-2. Identified one unmatched segmented image and excluded it from the valid-pair set.
-3. Built one-to-one color/segmented pairing using normalized full-name matching with descriptor fallback.
-4. Created a fixed stratified 80:10:10 split using random seed 42.
-5. Performed dataset quality control, including pairing checks, duplicate checks, spatial-size checks, visual verification, background-quality checks, and target validation.
-6. Excluded samples without reliable foreground-background separation from the final segmentation experiment.
-7. Retained all 38 PlantVillage classes.
-8. Generated binary segmentation targets dynamically in memory from QC-approved segmented RGB images; no standalone binary-mask dataset is stored.
-9. Final target rule: near-black background pixels are background (`0`), and retained foreground pixels are leaf (`1`), using threshold 15.
-10. Verified all 52,969 final targets with no empty/effectively-full invalid targets.
+## Dataset Lineage
 
-## Planned Segmentation Notebooks
-
-- `01_PlantVillage_Segmentation_Data_Preprocessing_and_QC.ipynb`
-- `02_PlantVillage_UNet_Segmentation.ipynb`
-- `03_PlantVillage_DeepLabV3Plus_Segmentation.ipynb`
-- `04_PlantVillage_FPN_Segmentation.ipynb`
-- `05_PlantVillage_Segmentation_Model_Comparison.ipynb`
-
-Each model experiment is designed to be independent while sharing the same final manifest, preprocessing rule, split, and evaluation protocol for fair comparison.
-
-## Suggested Repository Structure
+Initial PlantVillage audit:
 
 ```text
-.
-├── README.md
-├── LICENSE
-├── .gitignore
-├── notebooks/
-│   ├── classification/
-│   ├── segmentation/
-│   └── detection/
-├── docs/
-│   └── notes/
-├── artifacts/
-│   └── segmentation/
-│       ├── manifests/
-│       └── configs/
-└── results/
-    └── segmentation/
+Color images      : 54,305
+Grayscale images  : 54,305
+Segmented images  : 54,306
+Classes           : 38
 ```
 
-## Important Files to Preserve
+One unmatched segmented sample was identified. A two-stage filename-matching process produced 54,305 unique color–segmented pairs.
 
-For the segmentation experiments, the most important reproducibility artifacts are:
+One unusable source pair was subsequently excluded, producing a 54,304-sample source set for the final classification experiments.
 
-- `final_segmentation_manifest.csv`
-- `segmentation_preprocessing_config.json`
-- `segmentation_qc_exclusions.csv`
-- `plantvillage_pairs_54305.csv`
-- `dataset_audit.txt`
+Different tasks use different final sample counts because their supervision requirements differ.
 
-These files should be stored under `artifacts/segmentation/`.
+| Task | Final Samples | Train | Validation | Test |
+|---|---:|---:|---:|---:|
+| Classification | 54,304 | 43,443 | 5,430 | 5,431 |
+| Segmentation | 52,969 | 42,371 | 5,300 | 5,298 |
+| Detection | 52,959 | 42,363 | 5,300 | 5,296 |
 
-## Dataset
+---
 
-The PlantVillage dataset itself is **not redistributed in this repository**. Users with authorized access should obtain the dataset from its original source and follow the relevant dataset terms.
+# 1. Segmentation
 
-Raw image directories should remain outside Git tracking.
+## Goal
 
-## Reproducibility
+Binary leaf segmentation using PlantVillage color images as input and QC-approved dataset-provided segmented images as the supervision source.
 
-The finalized segmentation experiment uses:
+## Preprocessing Highlights
 
-- fixed class-aware split
-- random seed: `42`
-- image size: `256 x 256`
-- binary segmentation target generated dynamically
-- near-black threshold: `15`
-- nearest-neighbor interpolation for binary target resizing
-- fixed final manifest across all segmentation architectures
+- Two-stage image pairing
+- Fixed stratified split
+- Leakage checks
+- spatial-dimension QC
+- one unusable source exclusion
+- segmented-source background QC
+- dynamic binary target generation
+- threshold = 15
+- nearest-neighbor mask alignment when required
 
-## Research Notes
+Final segmentation set:
 
-The preprocessing notebook contains exploratory and rejected approaches as part of the research record. In particular, an adaptive color-difference/Otsu approach was evaluated but was not selected as the final target-generation method after qualitative inspection.
-
-The PDF methodology/worklog under `docs/notes/` is intended as an evolving personal research record rather than the final conference manuscript.
-
-## Segmentation Progress
-
-| Experiment | Status |
-|---|---|
-| Data Preprocessing & QC | ✅ Complete |
-| U-Net (ResNet34) | ✅ Complete |
-| DeepLabV3+ (ResNet34) | ✅ Complete |
-| FPN (ResNet34) | ✅ Complete |
-| Final Model Comparison | ✅ Models Completed |
-
-### Final Segmentation Results
-
-| Metric | U-Net | DeepLabV3+ | FPN |
-|---|---:|---:|---:|
-| Test Dice | **0.991319** | 0.990106 | 0.990844 |
-| Test IoU | **0.982788** | 0.980405 | 0.981854 |
-| Precision | **0.991544** | 0.990305 | 0.990803 |
-| Recall | **0.991094** | 0.989906 | 0.990885 |
-| Specificity | **0.992660** | 0.991584 | 0.992013 |
-| Pixel Accuracy | **0.991933** | 0.990804 | 0.991488 |
-
-U-Net achieved the highest observed performance on the fixed PlantVillage
-segmentation test set, followed closely by FPN and DeepLabV3+.
-All models used the same QC-approved segmentation dataset and ResNet34
-ImageNet-pretrained encoder.
-
-### U-Net — Final Test Performance
-
-| Metric | Score |
-|---|---:|
-| Dice | 0.991319 |
-| IoU / Jaccard | 0.982788 |
-| Precision | 0.991544 |
-| Recall | 0.991094 |
-| Specificity | 0.992660 |
-| Pixel Accuracy | 0.991933 |
-
-### Segmentation Results
-
-| Metric | U-Net | DeepLabV3+ |
-|---|---:|---:|
-| Dice | **0.991319** | 0.990106 |
-| IoU / Jaccard | **0.982788** | 0.980405 |
-| Precision | **0.991544** | 0.990305 |
-| Recall | **0.991094** | 0.989906 |
-| Specificity | **0.992660** | 0.991584 |
-| Pixel Accuracy | **0.991933** | 0.990804 |
+```text
+52,969 samples
+38 classes
+42,371 train
+5,300 validation
+5,298 test
+```
 
 ## Models
 
-Segmentation models planned for controlled comparison:
+```text
+U-Net + ResNet34
+DeepLabV3+ + ResNet34
+FPN + ResNet34
+```
 
-1. U-Net
-2. U-Net++
-3. DeepLabV3+
+## Final Test Results
 
-Model checkpoints and other large generated files are intentionally excluded from normal Git tracking.
+| Model | Dice | IoU |
+|---|---:|---:|
+| **U-Net** | **0.991319** | **0.982788** |
+| FPN | 0.990844 | 0.981854 |
+| DeepLabV3+ | 0.990106 | 0.980405 |
 
-## License and Use Restrictions
+**Best observed segmentation model:** U-Net.
 
-This repository is proprietary research work and is **not open source**.
+The differences are small; the repository reports an observed experimental ranking rather than universal architectural superiority.
 
-No permission is granted to copy, reproduce, modify, distribute, publish, sublicense, commercialize, or create derivative works from the original code, notebooks, documentation, preprocessing logic, figures, manifests, or results without prior written permission from the copyright holder.
+---
 
-See [LICENSE](LICENSE) for the complete terms.
+# 2. Leaf-Level Disease Detection
 
-## Citation
+## Goal
 
-A formal citation will be added after the associated paper metadata is finalized.
+Whole-leaf localization with PlantVillage disease-class prediction.
 
-## Contact
+This is **not lesion-level detection**.
 
-For permission requests or research correspondence:
+## Why New Detection Labels Were Needed
 
-- Name: `Maliha Sanjana`
-- Email: `malihasanjanapushpita@gmail.com`
+PlantVillage does not provide suitable native bounding-box annotations for this workflow.
+
+Early full-image pseudo-box experiments were rejected from the final methodology because every object occupied the complete image and did not provide meaningful localization supervision.
+
+The final boxes were generated from QC-approved leaf masks.
+
+## Detection Dataset
+
+```text
+52,959 samples
+38 classes
+42,363 train
+5,300 validation
+5,296 test
+```
+
+Fifteen suspicious mask-derived boxes were manually reviewed:
+
+```text
+5 retained
+10 excluded
+```
+
+## Transfer-Learning Pipeline
+
+All final detectors use:
+
+```text
+COCO pretrained
+      ↓
+PlantDoc object detection
+      ↓
+Best PlantDoc checkpoint
+      ↓
+PlantVillage tight leaf boxes
+```
+
+## Models
+
+```text
+YOLOv8n
+YOLOv8s
+YOLO11n
+```
+
+## Final Test Results
+
+| Model | Precision | Recall | F1 | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|---:|
+| YOLOv8n | 0.992832 | 0.991846 | 0.992339 | 0.994014 | 0.981625 |
+| **YOLOv8s** | **0.994737** | **0.995709** | **0.995223** | **0.994231** | **0.983002** |
+| YOLO11n | 0.993128 | 0.991207 | 0.992167 | 0.993787 | 0.978832 |
+
+**Best observed detection model by mAP50-95:** YOLOv8s.
+
+---
+
+# 3. Classification
+
+## Motivation
+
+Ordinary PlantVillage classification is highly saturated. The final classification study therefore focuses on **robustness to background intervention**, not only on normal RGB accuracy.
+
+## Classification Source
+
+```text
+54,304 samples
+38 classes
+43,443 train
+5,430 validation
+5,431 test
+```
+
+The stricter segmentation subset was not used because it caused one class to have zero test samples.
+
+The completed U-Net segmentation model was used to predict a leaf mask for all 54,304 classification images.
+
+## Four Views
+
+```text
+Original RGB
+Leaf-only
+Background-only
+Counterfactual background
+```
+
+## Experiments
+
+```text
+Standard RGB EfficientNet-B0
+Leaf-Only Teacher EfficientNet-B0
+MG-CCD EfficientNet-B0
+```
+
+### Proposed MG-CCD Strategy
+
+MG-CCD = **Mask-Guided Counterfactual Consistency Distillation**
+
+Training combines:
+
+```text
+Original RGB cross-entropy
++ Counterfactual cross-entropy
++ Leaf-only teacher distillation
++ Original/Counterfactual consistency
+```
+
+The final MG-CCD student requires **RGB input only** at inference time.
+
+## Final Multi-View Macro-F1
+
+| Model | Original | Leaf-only | Counterfactual | Background-only |
+|---|---:|---:|---:|---:|
+| Standard RGB | **0.997589** | 0.648865 | 0.868435 | 0.040040 |
+| Leaf-Only Teacher | 0.950641 | **0.996449** | 0.957307 | 0.080980 |
+| MG-CCD | 0.996907 | 0.986897 | **0.995904** | 0.088776 |
+
+## Main Classification Finding
+
+Standard RGB:
+
+```text
+Original → Counterfactual Macro-F1 drop
+= 12.915 percentage points
+```
+
+MG-CCD:
+
+```text
+Original → Counterfactual Macro-F1 drop
+= 0.100 percentage points
+```
+
+MG-CCD improves counterfactual Macro F1 over the Standard RGB baseline by:
+
+```text
+12.747 percentage points
+```
+
+while ordinary RGB Macro F1 is only:
+
+```text
+0.068 percentage points lower
+```
+
+Therefore, the classification contribution is primarily **robustness-oriented**, not an ordinary-accuracy claim.
+
+---
+
+# Unified Research Contribution
+
+The project connects the three tasks instead of treating them independently.
+
+```text
+PlantVillage audit + pairing
+          ↓
+   Segmentation study
+          ↓
+   validated leaf masks
+        /       \
+       /         \
+Detection       Classification
+tight boxes     mask-guided robustness
+       \         /
+        \       /
+   unified multi-task study
+```
+
+Key links:
+
+- segmentation QC produces reliable leaf-region supervision,
+- detection converts leaf masks into tight whole-leaf boxes,
+- classification uses the completed U-Net as privileged mask supervision,
+- MG-CCD transfers leaf-focused teacher knowledge into an RGB-only student.
+
+---
+
+# Repository Structure
+
+```text
+plantvillage-multitask-vision-research/
+├── README.md
+├── LICENSE
+├── .gitignore
+│
+├── notebooks/
+│   ├── segmentation/
+│   ├── detection/
+│   └── classification/
+│
+├── artifacts/
+│   ├── segmentation/
+│   ├── detection/
+│   └── classification/
+│
+├── results/
+│   ├── segmentation/
+│   ├── detection/
+│   ├── classification/
+│   └── overall/
+│
+├── docs/
+│   └── notes/
+│
+└── archive/
+    ├── detection_full_image_pseudo_box_experiments/
+    └── deprecated_classification_preprocessing/
+```
+
+---
+
+# Reproducibility
+
+The project uses:
+
+- fixed manifests,
+- relative paths,
+- fixed random seeds,
+- saved configuration files,
+- persistent Google Drive checkpoints,
+- auto-resume logic,
+- best and last checkpoints,
+- CSV/JSON result artifacts,
+- per-class reports,
+- qualitative visualizations.
+
+Large datasets and model checkpoints are not intended for normal Git tracking.
+
+---
+
+# Important Limitations
+
+1. PlantVillage is a controlled image dataset; results should not be interpreted as direct field performance.
+2. Segmentation supervision is derived from dataset-provided segmented images rather than an independent manual mask dataset.
+3. Detection boxes are mask-derived whole-leaf boxes, not lesion-level annotations.
+4. The PlantDoc stage has not yet been isolated with a direct COCO→PlantVillage ablation.
+5. Classification background-only evaluation is diagnostic because predicted masks can leave residual leaf evidence.
+6. The exact novelty wording for MG-CCD should be finalized only after the final literature review.
+7. External field-domain validation would further strengthen all three task claims.
+
+---
+
+# Research Notes
+
+Detailed methodology notes are stored under:
+
+```text
+docs/notes/
+```
+
+Recommended files:
+
+```text
+PlantVillage_Segmentation_Final_Research_Notes.tex
+PlantVillage_Detection_Final_Research_Notes.tex
+PlantVillage_Classification_Final_Research_Notes.tex
+```
+
+---
+
+# Paper Direction
+
+The completed experimental study contains three linked components:
+
+```text
+Segmentation:
+rigorous QC + architecture comparison
+
+Detection:
+mask-derived tight leaf localization
++ plant-domain transfer learning
+
+Classification:
+segmentation-privileged
+counterfactual robustness training
+```
+
+The final conference paper should emphasize the **unified methodological connection and controlled robustness analysis**, rather than simply presenting nine unrelated models.
+
+---
+
+## License
+
+See the repository `LICENSE` file.
+
+Raw third-party datasets are not redistributed by this repository.
